@@ -281,28 +281,33 @@
   nav { transition: box-shadow 0.3s ease; }
   nav.scrolled { box-shadow: 0 6px 24px rgba(32, 28, 27, 0.06); }
 
-  .hero { position: relative; overflow: hidden; }
+  .hero { position: relative; }
   .hero .wrap { position: relative; z-index: 1; }
+  section, footer { position: relative; z-index: 1; }
 
+  .orb-field { position: fixed; inset: 0; overflow: hidden; pointer-events: none; z-index: 0; }
   .orb {
-    position: absolute; border-radius: 50%;
-    filter: blur(70px); pointer-events: none; z-index: 0;
-    transform: translate(var(--px, 0px), var(--py, 0px));
-    transition: transform 0.9s cubic-bezier(0.2, 0.7, 0.2, 1);
+    position: absolute; left: 0; top: 0; border-radius: 50%;
+    filter: blur(70px); will-change: transform;
+    transform: translate3d(var(--x, 70vw), var(--y, 20vh), 0);
   }
   .orb-1 {
-    width: 460px; height: 460px; right: -90px; top: 40px;
-    background: radial-gradient(circle, rgba(153, 0, 0, 0.32), transparent 70%);
-    animation: drift 16s ease-in-out infinite alternate;
+    width: 460px; height: 460px; margin: -230px 0 0 -230px;
+    background: radial-gradient(circle, rgba(153, 0, 0, 0.34), transparent 70%);
   }
   .orb-2 {
-    width: 320px; height: 320px; right: 26%; bottom: -80px;
-    background: radial-gradient(circle, rgba(227, 219, 206, 0.9), transparent 70%);
-    animation: drift 20s ease-in-out infinite alternate-reverse;
+    width: 320px; height: 320px; margin: -160px 0 0 -160px;
+    background: radial-gradient(circle, rgba(227, 219, 206, 0.95), transparent 70%);
   }
-  @keyframes drift {
-    from { translate: 0 0; }
-    to   { translate: -50px 36px; }
+  .orb i {
+    position: absolute; inset: 0; border-radius: 50%; background: inherit;
+    animation: float 9s ease-in-out infinite alternate;
+  }
+  .orb-2 i { animation-duration: 13s; animation-direction: alternate-reverse; }
+  @keyframes float {
+    0%   { translate: -40px 20px;  scale: 0.92; }
+    50%  { translate: 30px -36px;  scale: 1.08; }
+    100% { translate: 50px 30px;   scale: 0.96; }
   }
 
   .scroll-cue {
@@ -341,12 +346,14 @@
   .project-card:hover .tag { border-color: var(--crimson); color: var(--crimson); }
 
   @media (prefers-reduced-motion: reduce) {
-    .orb, .scroll-cue::after, .avail .dot { animation: none; }
+    .orb i, .scroll-cue::after, .avail .dot { animation: none; }
     .js .reveal { opacity: 1; transform: none; transition: none; }
   }
 </style>
 </head>
 <body>
+
+<div class="orb-field" aria-hidden="true"><div class="orb orb-1"><i></i></div><div class="orb orb-2"><i></i></div></div>
 
 <nav>
   <div class="wrap">
@@ -370,8 +377,6 @@
 </nav>
 
 <header class="hero">
-  <div class="orb orb-1" aria-hidden="true"></div>
-  <div class="orb orb-2" aria-hidden="true"></div>
   <div class="wrap">
     <p class="avail"><span class="dot" aria-hidden="true"></span>Open to full-time data science and ML roles</p>
     <div class="hero-eyebrow">Data Scientist and ML Engineer · Bloomington, Indiana</div>
@@ -628,21 +633,48 @@
     window.addEventListener('scroll', onScroll, { passive: true });
     onScroll();
 
-    var hero = document.querySelector('.hero');
     var orbs = document.querySelectorAll('.orb');
-    var fine = window.matchMedia('(pointer: fine)').matches;
     var still = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if (hero && fine && !still) {
-      hero.addEventListener('mousemove', function (e) {
-        var r = hero.getBoundingClientRect();
-        var x = (e.clientX - r.left) / r.width - 0.5;
-        var y = (e.clientY - r.top) / r.height - 0.5;
-        orbs.forEach(function (orb, i) {
-          var k = (i + 1) * 30;
-          orb.style.setProperty('--px', (x * k) + 'px');
-          orb.style.setProperty('--py', (y * k) + 'px');
-        });
+    var fine = window.matchMedia('(pointer: fine)').matches;
+    var mx = 0, my = 0;
+    var cur = [{x: 0, y: 0}, {x: 0, y: 0}];
+
+    function target(i, t) {
+      var w = window.innerWidth, vh = window.innerHeight;
+      var doc = Math.max(1, document.documentElement.scrollHeight - vh);
+      var p = Math.min(1, Math.max(0, window.scrollY / doc));
+      var a = i === 0 ? 0 : Math.PI;
+      var x = w * (0.5 + 0.38 * Math.cos(p * Math.PI * 3 + a));
+      var y = vh * (0.5 + 0.30 * Math.sin(p * Math.PI * 2 + a));
+      return { x: x + mx * (i + 1) * 28, y: y + my * (i + 1) * 28 };
+    }
+
+    if (still) {
+      orbs.forEach(function (o, i) {
+        var t0 = target(i, 0);
+        o.style.setProperty('--x', t0.x + 'px');
+        o.style.setProperty('--y', t0.y + 'px');
       });
+    } else {
+      if (fine) {
+        window.addEventListener('mousemove', function (e) {
+          mx = e.clientX / window.innerWidth - 0.5;
+          my = e.clientY / window.innerHeight - 0.5;
+        });
+      }
+      var first = true;
+      (function loop(t) {
+        orbs.forEach(function (o, i) {
+          var tg = target(i, t);
+          if (first) { cur[i].x = tg.x; cur[i].y = tg.y; }
+          cur[i].x += (tg.x - cur[i].x) * 0.045;
+          cur[i].y += (tg.y - cur[i].y) * 0.045;
+          o.style.setProperty('--x', cur[i].x.toFixed(1) + 'px');
+          o.style.setProperty('--y', cur[i].y.toFixed(1) + 'px');
+        });
+        first = false;
+        requestAnimationFrame(loop);
+      })(0);
     }
   })();
 </script>
