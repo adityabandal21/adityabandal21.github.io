@@ -229,6 +229,54 @@
     padding: 36px 0; color: var(--text-dim); font-size: 0.82rem;
     display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px;
   }
+  /* ---------- AVAILABILITY, PIPELINES, EXPERIENCE ---------- */
+  .avail {
+    display: inline-flex; align-items: center; gap: 10px;
+    font-size: 0.9rem; color: var(--text-dim); margin-bottom: 18px;
+    opacity: 0; animation: rise 0.7s ease forwards;
+  }
+  .avail .dot {
+    width: 8px; height: 8px; border-radius: 50%; background: #3C8D5A;
+    animation: pulse 2.2s ease-out infinite;
+  }
+  @keyframes pulse {
+    0%   { box-shadow: 0 0 0 0 rgba(60, 141, 90, 0.45); }
+    70%  { box-shadow: 0 0 0 9px rgba(60, 141, 90, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(60, 141, 90, 0); }
+  }
+
+  .pipeline { list-style: none; display: flex; flex-wrap: wrap; gap: 8px 4px; margin-bottom: 18px; }
+  .pipeline li {
+    font-size: 0.78rem; padding: 6px 12px;
+    background: var(--bg-alt); border: 1px solid var(--border);
+    transition: border-color 0.2s ease, color 0.2s ease;
+  }
+  .pipeline li:not(:last-child)::after { content: "→"; color: var(--crimson); margin-left: 10px; }
+  .project-card:hover .pipeline li { border-color: var(--crimson); }
+
+  .key-result { font-size: 0.92rem; color: var(--text); margin-bottom: 18px; }
+  .key-result strong { color: var(--crimson); font-weight: 500; }
+
+  .exp-list { display: flex; flex-direction: column; }
+  .exp-item {
+    display: grid; grid-template-columns: 260px 1fr; gap: 40px;
+    padding: 32px 0; border-top: 1px solid var(--border);
+  }
+  .exp-item:first-child { border-top: none; padding-top: 0; }
+  .exp-date { color: var(--crimson); font-size: 0.85rem; }
+  .exp-org { font-family: 'Fraunces', serif; font-weight: 500; font-size: 1.08rem; margin-top: 6px; }
+  .exp-role { color: var(--text-dim); font-size: 0.9rem; margin-top: 4px; }
+  .exp-points { list-style: none; }
+  .exp-points li {
+    position: relative; padding-left: 22px; margin-bottom: 12px;
+    color: var(--text-dim); font-size: 0.97rem; max-width: 62ch;
+  }
+  .exp-points li::before {
+    content: ""; position: absolute; left: 0; top: 0.7em;
+    width: 6px; height: 6px; background: var(--crimson);
+  }
+  @media (max-width: 700px) { .exp-item { grid-template-columns: 1fr; gap: 12px; } }
+
   /* ---------- MOTION ---------- */
   nav { transition: box-shadow 0.3s ease; }
   nav.scrolled { box-shadow: 0 6px 24px rgba(32, 28, 27, 0.06); }
@@ -293,7 +341,7 @@
   .project-card:hover .tag { border-color: var(--crimson); color: var(--crimson); }
 
   @media (prefers-reduced-motion: reduce) {
-    .orb, .scroll-cue::after { animation: none; }
+    .orb, .scroll-cue::after, .avail .dot { animation: none; }
     .js .reveal { opacity: 1; transform: none; transition: none; }
   }
 </style>
@@ -304,6 +352,7 @@
   <div class="wrap">
     <div class="logo">A<span>.</span>Bandal</div>
     <div class="nav-links">
+      <a href="#experience">Experience</a>
       <a href="#projects">Projects</a>
       <a href="#research">Research</a>
       <a href="#about">About</a>
@@ -324,6 +373,7 @@
   <div class="orb orb-1" aria-hidden="true"></div>
   <div class="orb orb-2" aria-hidden="true"></div>
   <div class="wrap">
+    <p class="avail"><span class="dot" aria-hidden="true"></span>Open to full-time data science and ML roles</p>
     <div class="hero-eyebrow">Data Scientist and ML Engineer · Bloomington, Indiana</div>
     <h1>Building data products that <em>reason</em>, predict, and explain.</h1>
     <p class="hero-sub">I'm Aditya Bandal, a data scientist working across machine learning, applied research, and data engineering, from retrieval-augmented systems to consumer behavior research. Open to full-time data science and ML engineering roles.</p>
@@ -381,6 +431,8 @@
           <span class="tag">Groq · Llama 3.3 70B</span>
           <span class="tag">Streamlit</span>
         </div>
+        <ol class="pipeline" aria-label="How it works"><li>Chunk</li><li>Embed</li><li>Retrieve (FAISS)</li><li>Generate (Llama 3.3)</li></ol>
+        <p class="key-result"><strong>Key result:</strong> 0.83 BERTScore on answer quality</p>
         <div class="project-links"><a href="https://github.com/adityabandal21/rag-chatbot" target="_blank" rel="noopener">View code on GitHub →</a></div>
       </div>
       <div class="project-card">
@@ -391,6 +443,8 @@
           <span class="tag">SHAP</span>
           <span class="tag">0.84 AUC</span>
         </div>
+        <ol class="pipeline" aria-label="How it works"><li>Customer data</li><li>XGBoost</li><li>SHAP explanations</li></ol>
+        <p class="key-result"><strong>Key result:</strong> 0.84 AUC, with a reason behind every prediction</p>
         <div class="project-links"><a href="https://github.com/adityabandal21/churn-predictor" target="_blank" rel="noopener">View code on GitHub →</a></div>
       </div>
       <div class="project-card">
@@ -402,6 +456,8 @@
           <span class="tag">VAE</span>
           <span class="tag">CTGAN</span>
         </div>
+        <ol class="pipeline" aria-label="How it works"><li>Real data</li><li>GAN, VAE, CTGAN</li><li>Synthetic data</li><li>Utility test</li></ol>
+        <p class="key-result"><strong>Key result:</strong> CTGAN reached a 0.873 TSTR AUC</p>
         <div class="project-links"><a href="https://github.com/adityabandal21/synthetic-data-gen" target="_blank" rel="noopener">View code on GitHub →</a></div>
       </div>
       <div class="project-card">
@@ -412,8 +468,54 @@
           <span class="tag">Plotly</span>
           <span class="tag">Streamlit</span>
         </div>
+        <ol class="pipeline" aria-label="How it works"><li>100K+ records</li><li>SQLite</li><li>Plotly dashboard</li></ol>
+        <p class="key-result"><strong>Key result:</strong> 96K orders and R$15.4M in revenue analyzed</p>
         <div class="project-links"><a href="https://github.com/adityabandal21/olist-dashboard" target="_blank" rel="noopener">View code on GitHub →</a></div>
       </div>
+    </div>
+  </div>
+</section>
+
+<section id="experience">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>Experience</h2>
+      <p class="section-note">Analytics and research roles, with the results I can document.</p>
+    </div>
+    <div class="exp-list">
+      <article class="exp-item">
+        <div class="exp-meta">
+          <div class="exp-date">Oct 2023 to Jul 2024</div>
+          <div class="exp-org">RebelCorp</div>
+          <div class="exp-role">Data Analyst Intern, Mumbai</div>
+        </div>
+        <ul class="exp-points">
+          <li>Built 5+ Power BI dashboards for restaurant, cafe, and entertainment clients, cutting reporting time by about 3 hours per week per client.</li>
+          <li>Cleaned and audited payment transaction data in Python and Excel, and ran projects from requirements gathering through documentation.</li>
+        </ul>
+      </article>
+      <article class="exp-item">
+        <div class="exp-meta">
+          <div class="exp-date">Jan 2026 to Jun 2026</div>
+          <div class="exp-org">Kelley School of Business, Indiana University</div>
+          <div class="exp-role">Research Assistant, Prof. Ashok K. Lalwani and Prof. Sang A. Lee</div>
+        </div>
+        <ul class="exp-points">
+          <li>Built a 50-state, 29-year political and demographic dataset from four public APIs: Census ACS, CDC, Pew, and FEC.</li>
+          <li>Benchmarked GANs, VAEs, and CTGAN on small behavioral datasets, and synthesized 20+ peer-reviewed papers on power distance belief.</li>
+        </ul>
+      </article>
+      <article class="exp-item">
+        <div class="exp-meta">
+          <div class="exp-date">Apr 2026 to present</div>
+          <div class="exp-org">Anderson School of Management, University of New Mexico</div>
+          <div class="exp-role">Research Assistant, Prof. Minkyung Koo</div>
+        </div>
+        <ul class="exp-points">
+          <li>Cut data processing time by over 80% across 113 studies with a Python pipeline that extracts SPSS metadata automatically.</li>
+          <li>Built a searchable index of study designs and variables that surfaced 15+ methodology gaps, and supported a Journal of Marketing submission across two institutions.</li>
+        </ul>
+      </article>
     </div>
   </div>
 </section>
@@ -501,7 +603,7 @@
 <script>
   document.documentElement.classList.add('js');
   (function () {
-    var targets = document.querySelectorAll('.section-head, .about-body, .about-facts .fact, .project-card, .research-item, .skill-group, .contact');
+    var targets = document.querySelectorAll('.section-head, .about-body, .about-facts .fact, .project-card, .exp-item, .research-item, .skill-group, .contact');
     targets.forEach(function (el, i) {
       el.classList.add('reveal');
       el.style.setProperty('--d', ((i % 4) * 0.08) + 's');
