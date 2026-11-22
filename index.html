@@ -3,7 +3,17 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Aditya Bandal — Data Science & ML</title>
+<title>Aditya Bandal | Data Scientist and Machine Learning Engineer</title>
+<meta name="description" content="Aditya Bandal is a data scientist in Bloomington, Indiana, building machine learning, RAG, and analytics projects. MS Data Science, Indiana University.">
+<meta name="author" content="Aditya Bandal">
+<meta name="theme-color" content="#FBF8F4">
+<link rel="canonical" href="https://adityabandal21.github.io/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Aditya Bandal | Data Scientist and Machine Learning Engineer">
+<meta property="og:description" content="Machine learning, applied research, and data engineering projects by Aditya Bandal.">
+<meta property="og:url" content="https://adityabandal21.github.io/">
+<meta name="twitter:card" content="summary">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%23FBF8F4'/%3E%3Ctext x='16' y='23' font-family='Georgia,serif' font-size='20' font-weight='600' text-anchor='middle' fill='%23201C1B'%3EA%3C/text%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
@@ -73,7 +83,10 @@
   }
   .icon-btn:hover { border-color: var(--crimson); color: var(--crimson); }
 
-  @media (max-width: 760px) { .nav-links { display: none; } }
+  @media (max-width: 760px) {
+    nav .wrap { height: auto; padding-top: 14px; padding-bottom: 14px; flex-wrap: wrap; gap: 12px; }
+    .nav-links { display: flex; gap: 18px; font-size: 0.86rem; order: 3; width: 100%; justify-content: flex-start; }
+  }
 
   /* ---------- HERO ---------- */
   .hero { padding: 130px 0 100px; border-bottom: 1px solid var(--border); }
@@ -205,9 +218,131 @@
   .contact p { color: var(--text-dim); font-size: 1.03rem; max-width: 460px; margin-bottom: 38px; }
   .contact-links { display: flex; gap: 16px; flex-wrap: wrap; }
 
+  /* ---------- PROJECT LINKS & RESUME ---------- */
+  .project-links { display: flex; gap: 22px; flex-wrap: wrap; margin-top: 18px; font-size: 0.9rem; }
+  .project-links a { color: var(--crimson); border-bottom: 1px solid transparent; transition: border-color 0.15s ease; }
+  .project-links a:hover { border-bottom-color: var(--crimson); }
+  .hero-cta .btn-resume { border-color: var(--text-dim); color: var(--text-dim); }
+  .hero-cta .btn-resume:hover { color: var(--crimson); border-color: var(--crimson); }
+
   footer {
     padding: 36px 0; color: var(--text-dim); font-size: 0.82rem;
     display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px;
+  }
+  /* ---------- AVAILABILITY, PIPELINES, EXPERIENCE ---------- */
+  .avail {
+    display: inline-flex; align-items: center; gap: 10px;
+    font-size: 0.9rem; color: var(--text-dim); margin-bottom: 18px;
+    opacity: 0; animation: rise 0.7s ease forwards;
+  }
+  .avail .dot {
+    width: 8px; height: 8px; border-radius: 50%; background: var(--crimson);
+    animation: pulse 2.2s ease-out infinite;
+  }
+  @keyframes pulse {
+    0%   { box-shadow: 0 0 0 0 rgba(153, 0, 0, 0.35); }
+    70%  { box-shadow: 0 0 0 9px rgba(153, 0, 0, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(153, 0, 0, 0); }
+  }
+
+  .pipeline { list-style: none; display: flex; flex-wrap: wrap; gap: 8px 4px; margin-bottom: 18px; }
+  .pipeline li {
+    font-size: 0.78rem; padding: 6px 12px;
+    background: var(--bg-alt); border: 1px solid var(--border);
+    transition: border-color 0.2s ease, color 0.2s ease;
+  }
+  .pipeline li:not(:last-child)::after { content: "→"; color: var(--crimson); margin-left: 10px; }
+  .project-card:hover .pipeline li { border-color: var(--crimson); }
+
+  .key-result { font-size: 0.92rem; color: var(--text); margin-bottom: 18px; }
+  .key-result strong { color: var(--crimson); font-weight: 500; }
+
+  .exp-list { display: flex; flex-direction: column; }
+  .exp-item {
+    display: grid; grid-template-columns: 260px 1fr; gap: 40px;
+    padding: 32px 0; border-top: 1px solid var(--border);
+  }
+  .exp-item:first-child { border-top: none; padding-top: 0; }
+  .exp-date { color: var(--crimson); font-size: 0.85rem; }
+  .exp-org { font-family: 'Fraunces', serif; font-weight: 500; font-size: 1.08rem; margin-top: 6px; }
+  .exp-role { color: var(--text-dim); font-size: 0.9rem; margin-top: 4px; }
+  .exp-points { list-style: none; }
+  .exp-points li {
+    position: relative; padding-left: 22px; margin-bottom: 12px;
+    color: var(--text-dim); font-size: 0.97rem; max-width: 62ch;
+  }
+  .exp-points li::before {
+    content: ""; position: absolute; left: 0; top: 0.7em;
+    width: 6px; height: 6px; background: var(--crimson);
+  }
+  @media (max-width: 700px) { .exp-item { grid-template-columns: 1fr; gap: 12px; } }
+
+  /* ---------- MOTION ---------- */
+  nav { transition: box-shadow 0.3s ease; }
+  nav.scrolled { box-shadow: 0 6px 24px rgba(32, 28, 27, 0.06); }
+
+  .hero { position: relative; overflow: hidden; }
+  .hero .wrap { position: relative; z-index: 1; }
+
+  .orb {
+    position: absolute; border-radius: 50%;
+    filter: blur(70px); pointer-events: none; z-index: 0;
+    transform: translate(var(--px, 0px), var(--py, 0px));
+    transition: transform 0.9s cubic-bezier(0.2, 0.7, 0.2, 1);
+  }
+  .orb-1 {
+    width: 460px; height: 460px; right: -90px; top: 40px;
+    background: radial-gradient(circle, rgba(153, 0, 0, 0.32), transparent 70%);
+    animation: drift 16s ease-in-out infinite alternate;
+  }
+  .orb-2 {
+    width: 320px; height: 320px; right: 26%; bottom: -80px;
+    background: radial-gradient(circle, rgba(227, 219, 206, 0.9), transparent 70%);
+    animation: drift 20s ease-in-out infinite alternate-reverse;
+  }
+  @keyframes drift {
+    from { translate: 0 0; }
+    to   { translate: -50px 36px; }
+  }
+
+  .scroll-cue {
+    position: absolute; left: 50%; bottom: 28px; transform: translateX(-50%);
+    display: flex; flex-direction: column; align-items: center; gap: 12px;
+    font-size: 0.72rem; letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--text-dim); z-index: 1;
+  }
+  .scroll-cue::after {
+    content: ""; width: 1px; height: 36px;
+    background: linear-gradient(var(--crimson), transparent);
+    animation: cue 2.2s ease-in-out infinite;
+  }
+  @keyframes cue {
+    0%   { transform: scaleY(0); transform-origin: top; }
+    50%  { transform: scaleY(1); transform-origin: top; }
+    51%  { transform-origin: bottom; }
+    100% { transform: scaleY(0); transform-origin: bottom; }
+  }
+
+  .js .reveal {
+    opacity: 0; transform: translateY(26px);
+    transition: opacity 0.8s ease, transform 0.8s cubic-bezier(0.2, 0.7, 0.2, 1);
+    transition-delay: var(--d, 0s);
+  }
+  .js .reveal.in { opacity: 1; transform: none; }
+
+  .project-card { position: relative; }
+  .project-card::before {
+    content: ""; position: absolute; left: 0; top: 0;
+    height: 2px; width: 0; background: var(--crimson);
+    transition: width 0.45s cubic-bezier(0.2, 0.7, 0.2, 1);
+  }
+  .project-card:hover::before { width: 100%; }
+  .project-card .tag { transition: border-color 0.2s ease, color 0.2s ease; }
+  .project-card:hover .tag { border-color: var(--crimson); color: var(--crimson); }
+
+  @media (prefers-reduced-motion: reduce) {
+    .orb, .scroll-cue::after, .avail .dot { animation: none; }
+    .js .reveal { opacity: 1; transform: none; transition: none; }
   }
 </style>
 </head>
@@ -217,6 +352,7 @@
   <div class="wrap">
     <div class="logo">A<span>.</span>Bandal</div>
     <div class="nav-links">
+      <a href="#experience">Experience</a>
       <a href="#projects">Projects</a>
       <a href="#research">Research</a>
       <a href="#about">About</a>
@@ -234,10 +370,13 @@
 </nav>
 
 <header class="hero">
+  <div class="orb orb-1" aria-hidden="true"></div>
+  <div class="orb orb-2" aria-hidden="true"></div>
   <div class="wrap">
-    <div class="hero-eyebrow">Bloomington, Indiana</div>
+    <p class="avail"><span class="dot" aria-hidden="true"></span>Open to full-time data science and ML roles</p>
+    <div class="hero-eyebrow">Data Scientist and ML Engineer · Bloomington, Indiana</div>
     <h1>Building data products that <em>reason</em>, predict, and explain.</h1>
-    <p class="hero-sub">I'm Aditya Bandal, a data scientist working across machine learning, applied research, and data engineering — from retrieval-augmented systems to consumer behavior research.</p>
+    <p class="hero-sub">I'm Aditya Bandal, a data scientist working across machine learning, applied research, and data engineering, from retrieval-augmented systems to consumer behavior research. Open to full-time data science and ML engineering roles.</p>
     <div class="hero-meta">
       <span>MS Data Science, Indiana University</span>
       <span>B.Tech Computer Engineering, Mumbai</span>
@@ -246,8 +385,10 @@
     <div class="hero-cta">
       <a class="btn btn-primary" href="#projects">View Projects</a>
       <a class="btn btn-outline" href="mailto:adityabandal21@gmail.com">Email Me</a>
+      <a class="btn btn-outline btn-resume" href="assets/Aditya_Bandal_Resume.pdf" target="_blank" rel="noopener">Download Resume (PDF)</a>
     </div>
   </div>
+  <div class="scroll-cue" aria-hidden="true">Scroll</div>
 </header>
 
 <section id="about">
@@ -259,12 +400,12 @@
     </div>
     <div class="about-facts">
       <div class="fact">
-        <div class="fact-label">Education</div>
-        <div class="fact-value">MS Data Science — Indiana University, 2026</div>
+        <div class="fact-label">Graduate</div>
+        <div class="fact-value">MS Data Science, Indiana University, 2026</div>
       </div>
       <div class="fact">
         <div class="fact-label">Undergraduate</div>
-        <div class="fact-value">B.Tech Computer Engineering — Mumbai, 2024</div>
+        <div class="fact-value">B.Tech Computer Engineering, Mumbai, 2024</div>
       </div>
       <div class="fact">
         <div class="fact-label">Focus areas</div>
@@ -290,6 +431,9 @@
           <span class="tag">Groq · Llama 3.3 70B</span>
           <span class="tag">Streamlit</span>
         </div>
+        <ol class="pipeline" aria-label="How it works"><li>Chunk</li><li>Embed</li><li>Retrieve (FAISS)</li><li>Generate (Llama 3.3)</li></ol>
+        <p class="key-result"><strong>Key result:</strong> 0.83 BERTScore on answer quality</p>
+        <div class="project-links"><a href="https://github.com/adityabandal21/rag-chatbot" target="_blank" rel="noopener">View code on GitHub →</a></div>
       </div>
       <div class="project-card">
         <h3>Customer Churn Predictor</h3>
@@ -299,16 +443,22 @@
           <span class="tag">SHAP</span>
           <span class="tag">0.84 AUC</span>
         </div>
+        <ol class="pipeline" aria-label="How it works"><li>Customer data</li><li>XGBoost</li><li>SHAP explanations</li></ol>
+        <p class="key-result"><strong>Key result:</strong> 0.84 AUC, with a reason behind every prediction</p>
+        <div class="project-links"><a href="https://github.com/adityabandal21/churn-predictor" target="_blank" rel="noopener">View code on GitHub →</a></div>
       </div>
       <div class="project-card">
         <h3>Synthetic Data Generation</h3>
-        <p>A comparison of three generative approaches — GAN, VAE, and CTGAN — for producing synthetic tabular data, evaluating each on data quality and downstream modeling utility using custom PyTorch implementations.</p>
+        <p>A comparison of three generative approaches, GAN, VAE, and CTGAN, for producing synthetic tabular data. Each is evaluated on data quality and downstream modeling utility using custom PyTorch implementations.</p>
         <div class="tag-row">
           <span class="tag">PyTorch</span>
           <span class="tag">GAN</span>
           <span class="tag">VAE</span>
           <span class="tag">CTGAN</span>
         </div>
+        <ol class="pipeline" aria-label="How it works"><li>Real data</li><li>GAN, VAE, CTGAN</li><li>Synthetic data</li><li>Utility test</li></ol>
+        <p class="key-result"><strong>Key result:</strong> CTGAN reached a 0.873 TSTR AUC</p>
+        <div class="project-links"><a href="https://github.com/adityabandal21/synthetic-data-gen" target="_blank" rel="noopener">View code on GitHub →</a></div>
       </div>
       <div class="project-card">
         <h3>Olist E-Commerce Analytics Dashboard</h3>
@@ -318,7 +468,54 @@
           <span class="tag">Plotly</span>
           <span class="tag">Streamlit</span>
         </div>
+        <ol class="pipeline" aria-label="How it works"><li>100K+ records</li><li>SQLite</li><li>Plotly dashboard</li></ol>
+        <p class="key-result"><strong>Key result:</strong> 96K orders and R$15.4M in revenue analyzed</p>
+        <div class="project-links"><a href="https://github.com/adityabandal21/olist-dashboard" target="_blank" rel="noopener">View code on GitHub →</a></div>
       </div>
+    </div>
+  </div>
+</section>
+
+<section id="experience">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>Experience</h2>
+      <p class="section-note">Analytics and research roles, with the results I can document.</p>
+    </div>
+    <div class="exp-list">
+      <article class="exp-item">
+        <div class="exp-meta">
+          <div class="exp-date">Oct 2023 to Jul 2024</div>
+          <div class="exp-org">RebelCorp</div>
+          <div class="exp-role">Data Analyst Intern, Mumbai</div>
+        </div>
+        <ul class="exp-points">
+          <li>Built 5+ Power BI dashboards for restaurant, cafe, and entertainment clients, cutting reporting time by about 3 hours per week per client.</li>
+          <li>Cleaned and audited payment transaction data in Python and Excel, and ran projects from requirements gathering through documentation.</li>
+        </ul>
+      </article>
+      <article class="exp-item">
+        <div class="exp-meta">
+          <div class="exp-date">Jan 2026 to Jun 2026</div>
+          <div class="exp-org">Kelley School of Business, Indiana University</div>
+          <div class="exp-role">Research Assistant, Prof. Ashok K. Lalwani and Prof. Sang A. Lee</div>
+        </div>
+        <ul class="exp-points">
+          <li>Built a 50-state, 29-year political and demographic dataset from four public APIs: Census ACS, CDC, Pew, and FEC.</li>
+          <li>Benchmarked GANs, VAEs, and CTGAN on small behavioral datasets, and synthesized 20+ peer-reviewed papers on power distance belief.</li>
+        </ul>
+      </article>
+      <article class="exp-item">
+        <div class="exp-meta">
+          <div class="exp-date">Apr 2026 to present</div>
+          <div class="exp-org">Anderson School of Management, University of New Mexico</div>
+          <div class="exp-role">Research Assistant, Prof. Minkyung Koo</div>
+        </div>
+        <ul class="exp-points">
+          <li>Cut data processing time by over 80% across 113 studies with a Python pipeline that extracts SPSS metadata automatically.</li>
+          <li>Built a searchable index of study designs and variables that surfaced 15+ methodology gaps, and supported a Journal of Marketing submission across two institutions.</li>
+        </ul>
+      </article>
     </div>
   </div>
 </section>
@@ -355,18 +552,18 @@
       <div class="skill-group">
         <h3>Machine Learning</h3>
         <ul>
-          <li>Predictive modeling (XGBoost, SHAP)</li>
-          <li>Generative models (GAN, VAE, CTGAN)</li>
-          <li>Retrieval-augmented generation</li>
+          <li>Predictive modeling, XGBoost and SHAP (Churn Predictor)</li>
+          <li>Generative models, GAN, VAE, CTGAN (Synthetic Data)</li>
+          <li>Retrieval-augmented generation (RAG Chatbot)</li>
           <li>PyTorch</li>
         </ul>
       </div>
       <div class="skill-group">
         <h3>Data Engineering</h3>
         <ul>
-          <li>SQL / SQLite</li>
+          <li>SQL and SQLite (Olist Dashboard)</li>
           <li>Data pipelines</li>
-          <li>Vector search (FAISS)</li>
+          <li>Vector search with FAISS</li>
           <li>Python</li>
         </ul>
       </div>
@@ -376,7 +573,7 @@
           <li>LangChain</li>
           <li>Streamlit</li>
           <li>Plotly</li>
-          <li>Groq</li>
+          <li>Groq (Llama 3.3 70B)</li>
         </ul>
       </div>
     </div>
@@ -391,16 +588,64 @@
       <a class="btn btn-primary" href="mailto:adityabandal21@gmail.com">adityabandal21@gmail.com</a>
       <a class="btn btn-outline" href="https://www.linkedin.com/in/adityabandal" target="_blank" rel="noopener">LinkedIn</a>
       <a class="btn btn-outline" href="https://github.com/adityabandal21" target="_blank" rel="noopener">GitHub</a>
+      <a class="btn btn-outline" href="assets/Aditya_Bandal_Resume.pdf" target="_blank" rel="noopener">Resume (PDF)</a>
     </div>
   </div>
 </section>
 
 <footer>
   <div class="wrap" style="display:flex; justify-content:space-between; width:100%; flex-wrap:wrap; gap:12px;">
-    <span>Aditya Bandal — Bloomington, IN</span>
+    <span>Aditya Bandal, Bloomington, IN</span>
     <span>Built and maintained independently</span>
   </div>
 </footer>
+
+<script>
+  document.documentElement.classList.add('js');
+  (function () {
+    var targets = document.querySelectorAll('.section-head, .about-body, .about-facts .fact, .project-card, .exp-item, .research-item, .skill-group, .contact');
+    targets.forEach(function (el, i) {
+      el.classList.add('reveal');
+      el.style.setProperty('--d', ((i % 4) * 0.08) + 's');
+    });
+
+    if ('IntersectionObserver' in window) {
+      var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('in');
+            io.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+      targets.forEach(function (el) { io.observe(el); });
+    } else {
+      targets.forEach(function (el) { el.classList.add('in'); });
+    }
+
+    var nav = document.querySelector('nav');
+    var onScroll = function () { nav.classList.toggle('scrolled', window.scrollY > 10); };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+
+    var hero = document.querySelector('.hero');
+    var orbs = document.querySelectorAll('.orb');
+    var fine = window.matchMedia('(pointer: fine)').matches;
+    var still = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (hero && fine && !still) {
+      hero.addEventListener('mousemove', function (e) {
+        var r = hero.getBoundingClientRect();
+        var x = (e.clientX - r.left) / r.width - 0.5;
+        var y = (e.clientY - r.top) / r.height - 0.5;
+        orbs.forEach(function (orb, i) {
+          var k = (i + 1) * 30;
+          orb.style.setProperty('--px', (x * k) + 'px');
+          orb.style.setProperty('--py', (y * k) + 'px');
+        });
+      });
+    }
+  })();
+</script>
 
 </body>
 </html>
